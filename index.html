@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Mansiv</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+        body {
+            font-family: 'Quicksand', sans-serif;
+            text-align: center;
+            color: white;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
+        }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 2s ease-in-out;
+            position: relative;
+            z-index: 1;
+            max-width: 90%;
+            width: 400px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #ff4e50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .hidden {
+            display: none;
+        }
+        #closingMessage {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        #closingMessage img {
+            width: 200px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        #restart {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <video class="video-background" autoplay loop muted>
+        <source src="romantic-background.mp4" type="video/mp4">
+    </video>
+
+    <audio autoplay loop>
+        <source src="romantic-music.mp3" type="audio/mp3">
+    </audio>
+    <div class="container" id="mainContent">
+        <h1>Happy Mansiv, Sayang! 💖</h1>
+        <p>Hari ini adalah hari yang penuh cinta dan kebahagiaan. Terima kasih telah menjadi bagian terindah dalam hidupku.</p>
+        <button id="showMessage">Klik untuk kejutan!</button>
+        <div id="message" class="hidden">
+            <p id="romanticText"></p>
+        </div>
+    </div>
+    <div id="closingMessage" class="hidden">
+        <h2>Aku akan selalu mencintaimu selamanya 💞</h2>
+        <p>Terima kasih telah menjadi bagian terbaik dalam hidupku.</p>
+        <img src="sayang.jpg" alt="Our Photo">
+        <button id="restart">Kembali ke Awal</button>
+    </div>
+    <script>
+        const messages = [
+            "Kamu adalah dunia bagiku, tanpa kamu segalanya terasa hampa. 💖",
+            "Setiap detik bersamamu adalah anugerah yang terindah. 💕",
+            "Aku ingin menghabiskan sisa hidupku bersamamu. ❤️",
+            "Cintaku padamu tumbuh setiap hari seperti bunga yang mekar. 🌹",
+            "Kamu adalah cahaya dalam hidupku yang selalu bersinar terang. ✨"
+        ];
+        
+        let index = 0;
+        document.getElementById("showMessage").addEventListener("click", function() {
+            const messageDiv = document.getElementById("message");
+            const romanticText = document.getElementById("romanticText");
+            if (index < messages.length) {
+                romanticText.innerText = messages[index];
+                index++;
+                messageDiv.classList.remove("hidden");
+            } else {
+                document.getElementById("mainContent").style.display = "none";
+                document.getElementById("closingMessage").style.display = "flex";
+            }
+        });
+        
+        document.getElementById("restart").addEventListener("click", function() {
+            index = 0;
+            document.getElementById("closingMessage").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+            document.getElementById("message").classList.add("hidden");
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const audio = document.querySelector("audio");
+            audio.play().catch(() => {
+                console.log("Autoplay dicegah, menunggu interaksi pengguna.");
+                document.body.addEventListener("click", () => {
+                    audio.play();
+                }, { once: true });
+            });
+        });
+    </script>
+</body>
+</html>
