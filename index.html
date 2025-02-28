@@ -148,6 +148,15 @@
             document.getElementById("mainContent").style.display = "block";
             document.getElementById("message").classList.add("hidden");
         });
+
+         // Coba autoplay setelah halaman dimuat
+    audio.play().catch(() => {
+        console.log("Autoplay dicegah, menunggu interaksi pengguna.");
+        document.body.addEventListener("click", () => {
+            audio.play();
+        }, { once: true });
+    });
+});
     </script>
 </body>
 </html>
